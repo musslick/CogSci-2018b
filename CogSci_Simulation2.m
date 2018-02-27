@@ -9,7 +9,6 @@ addpath('main');
 numTrialsPerMiniBlock = 6;
 numMiniBlocks = 100;
 congruentTrials = 1;
-localFrequency = 0.25;
 numSequences = 10;
 
 % Create structure with params for simulation
@@ -101,8 +100,6 @@ save(['logfiles/CogSci_Simulation2_' num2str(numSequences) '.mat']);
 
 CogSci_Simulation2_Stats;
 
-%%
-
 % compute performance for optimized gain
 
 optimal_gain_mean = mean(optimal_gain,2);
@@ -178,11 +175,7 @@ irrelActivation_global_unoptimized_sem  = std(irrelActivation_global_unoptimized
 relActivation_local_unoptimized_sem = std(relActivation_local_unoptimized,[], 2)/sqrt(numSequences);
 irrelActivation_local_unoptimized_sem = std(irrelActivation_local_unoptimized,[], 2)/sqrt(numSequences);
 
-%%
-plot(abs(allDrift(1, transition(1,:) == 0))); hold on;
-plot(abs(allDrift(2, transition(2,:) == 0)), 'r'); hold off;
-
-%% COGSCI PLOTS
+%% PLOTS
 
 colors = [51 153 255; 255 153 51; 200 200 200]/255;
 fontsize = 15;
@@ -226,121 +219,3 @@ set(leg, 'FontSize', fontsize);
 set(gca, 'FontSize', fontsize, 'FontWeight','bold');
 
 
-%% ALL PLOTS
-
-colors = [51 153 255; 255 153 51; 200 200 200]/255;
-fontsize = 15;
-
-xdata = frequencies * 100;
-
-fig1 = figure(1);
-set(fig1, 'Position', [100 100 540 145]);
-
-% Switch Cost RT
-subplot(1,2,1);
-plot(xdata, switchCostRT_global_mean, 'r', 'LineWidth', 3); hold on;
-plot(xdata, switchCostRT_local_mean, '--r', 'LineWidth', 3);
-plot(xdata, switchCostRT_global_unoptimized_mean, 'k', 'LineWidth', 3); 
-plot(xdata, switchCostRT_local_unoptimized_mean, '--k', 'LineWidth', 3);
-hold off;
-xlim([min(xdata) max(xdata)]);
-ylabel({'Switch', 'Cost'}, 'FontSize', fontsize, 'FontWeight','bold');
-xlabel('Task Switch Probability', 'FontSize', fontsize, 'FontWeight','bold');
-set(gca, 'FontSize', fontsize, 'FontWeight','bold');
-
-% Switch Cost ER
-subplot(1,2,2);
-plot(xdata, switchCostER_global_mean, 'r', 'LineWidth', 3); hold on;
-plot(xdata, switchCostER_local_mean, '--r', 'LineWidth', 3);
-plot(xdata, switchCostER_global_unoptimized_mean, 'k', 'LineWidth', 3); 
-plot(xdata, switchCostER_local_unoptimized_mean, '--k', 'LineWidth', 3);
-hold off;
-xlim([min(xdata) max(xdata)]);
-ylabel({'Switch ', 'Cost'}, 'FontSize', fontsize, 'FontWeight','bold');
-xlabel('Task Switch Probability', 'FontSize', fontsize, 'FontWeight','bold');
-set(gca, 'FontSize', fontsize, 'FontWeight','bold');
-
-fig2 = figure(2);
-set(fig2, 'Position', [100 300 540 120]);
-
-% Incongruency Cost RT
-subplot(1,2,1);
-plot(xdata, incongruencyCostRT_global_mean, 'r', 'LineWidth', 3); hold on;
-plot(xdata, incongruencyCostRT_local_mean, '--r', 'LineWidth', 3);
-plot(xdata, incongruencyCostRT_global_unoptimized_mean, 'k', 'LineWidth', 3); 
-plot(xdata, incongruencyCostRT_local_unoptimized_mean, '--k', 'LineWidth', 3);
-hold off;
-xlim([min(xdata) max(xdata)]);
-ylabel({'Incongruency', 'Cost'}, 'FontSize', fontsize, 'FontWeight','bold');
-% xlabel('Gain', 'FontSize', fontsize, 'FontWeight','bold');
-set(gca, 'XTickLabels', '');
-set(gca, 'FontSize', fontsize, 'FontWeight','bold');
-
-% Incongruency Cost ER
-subplot(1,2,2);
-plot(xdata, incongruencyCostER_global_mean, 'r', 'LineWidth', 3); hold on;
-plot(xdata, incongruencyCostER_local_mean, '--r', 'LineWidth', 3);
-plot(xdata, incongruencyCostER_global_unoptimized_mean, 'k', 'LineWidth', 3); 
-plot(xdata, incongruencyCostER_local_unoptimized_mean, '--k', 'LineWidth', 3);
-hold off;
-xlim([min(xdata) max(xdata)]);
-ylabel({'Incongruency', 'Cost'}, 'FontSize', fontsize, 'FontWeight','bold');
-% xlabel('Gain', 'FontSize', fontsize, 'FontWeight','bold');
-set(gca, 'XTickLabels', '');
-set(gca, 'FontSize', fontsize, 'FontWeight','bold');
-
-fig3 = figure(3);
-set(fig3, 'Position', [100 500 540 120]);
-
-% overall RT
-subplot(1,2,1);
-plot(xdata, overallRT_global_mean, 'r', 'LineWidth', 3); hold on;
-plot(xdata, overallRT_local_mean, '--r', 'LineWidth', 3);
-plot(xdata, overallRT_global_unoptimized_mean, 'k', 'LineWidth', 3); 
-plot(xdata, overallRT_local_unoptimized_mean, '--k', 'LineWidth', 3);
-hold off;
-xlim([min(xdata) max(xdata)]);
-ylabel({'Repetition', 'Performance'}, 'FontSize', fontsize, 'FontWeight','bold');
-% xlabel('Gain', 'FontSize', fontsize, 'FontWeight','bold');
-set(gca, 'XTickLabels', '');
-set(gca, 'FontSize', fontsize, 'FontWeight','bold');
-
-% overall ER
-subplot(1,2,2);
-plot(xdata, overallER_global_mean, 'r', 'LineWidth', 3); hold on;
-plot(xdata, overallER_local_mean, '--r', 'LineWidth', 3);
-plot(xdata, overallER_global_unoptimized_mean, 'k', 'LineWidth', 3); 
-plot(xdata, overallER_local_unoptimized_mean, '--k', 'LineWidth', 3);
-hold off;
-xlim([min(xdata) max(xdata)]);
-ylabel({'Repetition', 'Performance'}, 'FontSize', fontsize,'FontWeight','bold');
-% xlabel('Gain', 'FontSize', fontsize, 'FontWeight','bold');
-set(gca, 'XTickLabels', '');
-set(gca, 'FontSize', fontsize, 'FontWeight','bold');
-
-
-fig4 = figure(4);
-
-% Switch Cost RT
-plot(xdata, switchCostRT_global_mean, 'r', 'LineWidth', 3); hold on;
-plot(xdata, switchCostRT_local_mean, '--r', 'LineWidth', 3);
-plot(xdata, switchCostRT_global_unoptimized_mean, 'k', 'LineWidth', 3); 
-plot(xdata, switchCostRT_local_unoptimized_mean, '--k', 'LineWidth', 3);
-hold off;
-xlim([min(xdata) max(xdata)]);
-ylabel({'Switch', 'Cost'}, 'FontSize', fontsize, 'FontWeight','bold');
-xlabel('Task Switch Probability', 'FontSize', fontsize, 'FontWeight','bold');
-legend('Optimized Model, Global Sequence', 'Optimized Model, Local Sequence', 'Unoptimized Model, Global Sequence', 'Unoptimized Model, Local Sequence', 'Location', 'eastoutside');
-set(gca, 'FontSize', fontsize, 'FontWeight','bold');
-
-
-fig5 = figure(5);
-set(fig5, 'Position', [100 700 540 120]);
-
-% Optimal Gain
-plot(xdata, optimal_gain_mean, 'r', 'LineWidth', 3); hold on;
-hold off;
-xlim([min(xdata) max(xdata)]);
-ylabel({'Optimal', 'Gain'}, 'FontSize', fontsize, 'FontWeight','bold');
-xlabel('Task Switch Probability', 'FontSize', fontsize, 'FontWeight','bold');
-set(gca, 'FontSize', fontsize, 'FontWeight','bold');
